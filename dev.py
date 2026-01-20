@@ -1,12 +1,18 @@
+import numpy as np
 from pyray import *
 import config
 from rubik import Rubik
 
 init_window(config.window_w,config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
+rotation_queue=[(1.5707963267948966, np.array([0,0,1]),2),
+                (1.5707963267948966, np.array([1,0,0]),2),
+                (1.5707963267948966, np.array([0,0,1]),0)]
 
 set_target_fps(config.fps)
 while not window_should_close():
+    rotation_queue,_=rubik_cube.handle_rotation(rotation_queue)
+
     update_camera(config.camera,
                      CameraMode.CAMERA_THIRD_PERSON)
     begin_drawing()

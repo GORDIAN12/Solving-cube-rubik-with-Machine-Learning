@@ -36,7 +36,7 @@ class Cube:
                 [0,1,0 ],
                 [-np.sin(theta),0, np.cos(theta)]
             ])
-        elif axis==3:
+        elif axis==2:
             rotation_matrix=np.array([
                 [np.cos(theta), -np.sin(theta),0],
                 [np.sin(theta), np.cos(theta),0],
@@ -149,7 +149,7 @@ class Rubik:
             self.rotation_angle=0
             self.is_rotating=True
 
-        if self.is_routing:
+        if self.is_rotating:
             if(self.rotation_angle != self.target_rotation):
                 diff=abs(self.target_rotation-self.rotation_angle)
                 delta_angle=min(np.radians(1), diff)
@@ -168,7 +168,7 @@ class Rubik:
                 axis_index=np.nonzero(self.rotation_axis)[0][0]
 
                 if id in self.segment:
-                    for part_id in enumerate(cube):
+                    for part_id in range(len(cube)):
                         if self.target_rotation>0:
                             self.cubes[id][part_id].rotate(axis_index,delta_angle)
                         else:
