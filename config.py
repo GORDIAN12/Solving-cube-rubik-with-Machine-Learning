@@ -1,5 +1,6 @@
 import numpy as np
 import pyray as pr
+from scramble import move_scram
 
 # ... existing code ...
 rubik_moves = {
