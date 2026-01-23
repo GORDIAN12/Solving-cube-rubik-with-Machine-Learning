@@ -129,7 +129,6 @@ def permutacion_tablas():
 PERM=permutacion_tablas()
 
 
-generate_scramble("R U R' F2")
 
 #Aplicacion de moviemientos usando permutaciones
 def apply_perm(state:np.ndarray, perm:np.ndarray)->np.ndarray:
@@ -146,16 +145,16 @@ def apply_scramble(state:np.ndarray,scramble:str, permuta:dict)->np.ndarray:
     return state
 
 
+if __name__ == "__main__":
+    scr = generate_movs(5)
+    print("Scramble:", scr)
+    print("Parsed:", generate_scramble(scr))
 
-scr = generate_movs(5)
-print("Scramble:", scr)
-print("Parsed:", generate_scramble(scr))
+    st=apply_scramble(SOLVED_STATE.copy(),scr,PERM)
+    print("Estado despues del scramble (20movs)", st[:20])
 
-st=apply_scramble(SOLVED_STATE.copy(),scr,PERM)
-print("Estado despues del scramble (20movs)", st[:20])
-
-for f in FACES:
-    t=SOLVED_STATE.copy()
-    t=apply_move(t,f,4,PERM)
-    assert np.array_equal(t,SOLVED_STATE), f"Fallo de identidad  en {f}"
-print("test 4 giros por cada identidad")
+    for f in FACES:
+        t=SOLVED_STATE.copy()
+        t=apply_move(t,f,4,PERM)
+        assert np.array_equal(t,SOLVED_STATE), f"Fallo de identidad  en {f}"
+    print("test 4 giros por cada identidad")

@@ -28,18 +28,25 @@ def scramble_to_actions(scramble: str):
         else:
             raise ValueError(f"Turn inválido: {turn}")
     return actions
+import config
+from scramble import move_scram
 
 def rotation_queue_from_scramble(scramble: str):
-    """
-    Regresa lo mismo que generate_random_movements:
-    [ (angle, axis, layer), (angle, axis, layer), ... ]
-    """
     rotation_queue = []
-    actions = scramble_to_actions(scramble)
+    parsed = move_scram.generate_scramble(scramble)  # [('U',2),...]
 
-    for action in actions:
-        if action not in config.rubik_moves:
-            raise KeyError(f"No existe '{action}' en config.rubik_moves")
-        rotation_queue.append(config.rubik_moves[action])
+    for face, turn in parsed:
+        if turn == 1:
+            actions = [face]
+        elif turn == 2:
+            actions = [face, face]       # U2 -> U U
+        elif turn == 3:
+            actions = [face + "'"]       # U' (antihorario)
+        else:
+            raise ValueError(f"Turn inválido: {turn}")
+
+        for action in actions:
+            rotation_queue.append(config.rubik_moves[action])
 
     return rotation_queue
+

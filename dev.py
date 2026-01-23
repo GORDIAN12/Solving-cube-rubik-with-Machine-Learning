@@ -2,12 +2,13 @@ import numpy as np
 from pyray import *
 import config
 from rubik import Rubik
+from scramble import move_scram
 from utils import rotation_queue_from_scramble
 init_window(config.window_w,config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
+movs=move_scram.generate_movs(5)
 
-scramble = "U2 R2 D U2 B'"
-rotation_queue = rotation_queue_from_scramble(scramble)
+rotation_queue = rotation_queue_from_scramble(movs)
 
 set_target_fps(config.fps)
 while not window_should_close():
