@@ -22,6 +22,10 @@ state_scrambled = move_scram.apply_scramble(
     move_scram.PERM
 )
 
+rotation_scramble=invert_scramble(movs)
+print("ROTATION SCRAMBLE",rotation_scramble)
+rotation_cube=rotation_queue_from_scramble(rotation_scramble)
+"""
 # 4) Encontrar solución con IDDFS
 sol = searching.iddfs_solve(state_scrambled, move_scram.PERM, move_scram.SOLVED_STATE, max_depth=10)
 print("Solución encontrada:", sol)
@@ -30,7 +34,7 @@ print("Solución encontrada:", sol)
 solution_queue = rotation_queue_from_scramble(sol) if sol is not None else []
 print("SOLUTION", solution_queue)
 print(f"Total movimientos en solución: {len(solution_queue)}")
-
+"""
 # Flags de control
 animating_scramble = True
 animation_complete = False
@@ -42,9 +46,10 @@ while not window_should_close():
         if rotation_queue or rubik_cube.is_rotating:  # ← CAMBIO CLAVE
             rotation_queue, _ = rubik_cube.handle_rotation(rotation_queue)
         else:
+            rotation_cube, _ = rubik_cube.handle_rotation(rotation_cube)
             # Solo cambiar cuando la cola esté vacía Y no haya rotación en progreso
-            print(f"✓ Scramble completado ({len(rotation_queue)} en cola, rotating={rubik_cube.is_rotating})")
-            animating_scramble = False
+            #print(f"✓ Scramble completado ({len(rotation_queue)} en cola, rotating={rubik_cube.is_rotating})")
+            #animating_scramble = False
     else:
         if solution_queue or rubik_cube.is_rotating:  # ← CAMBIO CLAVE
             solution_queue, _ = rubik_cube.handle_rotation(solution_queue)
