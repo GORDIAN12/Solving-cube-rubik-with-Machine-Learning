@@ -6,7 +6,7 @@ from scramble import move_scram
 from utils import *
 init_window(config.window_w,config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
-movs=move_scram.generate_movs(5)
+movs=move_scram.generate_movs(10)
 print("SCRAMBLE",movs)
 rotation_queue = rotation_queue_from_scramble(movs)
 rotation_scramble=invert_scramble(movs)

@@ -142,7 +142,7 @@ class Rubik:
         if self.is_rotating:
             if abs(self.target_rotation - self.rotation_angle) > 1e-6:
                 diff = abs(self.target_rotation - self.rotation_angle)
-                delta_angle = min(np.radians(5), diff)
+                delta_angle = min(np.radians(3), diff)
                 self.rotation_angle += delta_angle if self.target_rotation > 0 else -delta_angle
             else:
                 delta_angle = 0

@@ -1,5 +1,6 @@
 import config
-import numpy as np
+from scramble import move_scram  # tu archivo move_scram.py
+
 """
 def generate_random_movements(n):
     rotation_queue=[]
@@ -9,8 +10,6 @@ def generate_random_movements(n):
         rotation_queue.append(config.rubik_moves[action])
     return rotation_queue
 """
-import config
-from scramble import move_scram  # tu archivo move_scram.py
 
 def scramble_to_actions(scramble: str):
     """
