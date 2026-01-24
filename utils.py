@@ -28,8 +28,7 @@ def scramble_to_actions(scramble: str):
         else:
             raise ValueError(f"Turn inválido: {turn}")
     return actions
-import config
-from scramble import move_scram
+
 
 def rotation_queue_from_scramble(scramble: str):
     rotation_queue = []
@@ -50,3 +49,15 @@ def rotation_queue_from_scramble(scramble: str):
 
     return rotation_queue
 
+def invert_move(move: str) -> str:
+    if move.endswith("2"):
+        return move          # U2 → U2
+    if move.endswith("'"):
+        return move[0]       # U' → U
+    return move + "'"        # U → U'
+
+
+def invert_scramble(scramble: str) -> str:
+    moves = scramble.strip().split()
+    inverted = [invert_move(m) for m in reversed(moves)]
+    return " ".join(inverted)

@@ -3,16 +3,20 @@ from pyray import *
 import config
 from rubik import Rubik
 from scramble import move_scram
-from utils import rotation_queue_from_scramble
+from utils import *
 init_window(config.window_w,config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
 movs=move_scram.generate_movs(5)
-
+print("SCRAMBLE",movs)
 rotation_queue = rotation_queue_from_scramble(movs)
+rotation_scramble=invert_scramble(movs)
+print("ROTATION SCRAMBLE",rotation_scramble)
+rotation_cube=rotation_queue_from_scramble(rotation_scramble)
 
 set_target_fps(config.fps)
 while not window_should_close():
     rotation_queue,_=rubik_cube.handle_rotation(rotation_queue)
+    rotation_cube,_=rubik_cube.handle_rotation(rotation_cube)
 
     update_camera(config.camera,
                      CameraMode.CAMERA_THIRD_PERSON)
