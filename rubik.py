@@ -70,7 +70,7 @@ class Rubik:
         self.generate_rubik(2)
 
     def generate_rubik(self, size):
-        colors = [WHITE, GREEN, BLUE, RED, YELLOW, ORANGE]
+        colors = [RED, ORANGE, BLUE, GREEN, WHITE, YELLOW]
         offset = size - 0.7
         size_z = size * 0.9, size * 0.9, size * 0.1
         size_x = size * 0.9, size * 0.1, size * 0.9
@@ -142,7 +142,7 @@ class Rubik:
         if self.is_rotating:
             if abs(self.target_rotation - self.rotation_angle) > 1e-6:
                 diff = abs(self.target_rotation - self.rotation_angle)
-                delta_angle = min(np.radians(3), diff)
+                delta_angle = min(np.radians(4), diff)
                 self.rotation_angle += delta_angle if self.target_rotation > 0 else -delta_angle
             else:
                 delta_angle = 0

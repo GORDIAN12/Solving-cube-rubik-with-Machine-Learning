@@ -1,6 +1,6 @@
 import config
 from scramble import move_scram  # tu archivo move_scram.py
-
+from ML import searching
 """
 def generate_random_movements(n):
     rotation_queue=[]
@@ -10,6 +10,8 @@ def generate_random_movements(n):
         rotation_queue.append(config.rubik_moves[action])
     return rotation_queue
 """
+def search_solving(actions):
+    return [config.rubik_moves[a] for a in actions]
 
 def scramble_to_actions(scramble: str):
     """
@@ -29,24 +31,35 @@ def scramble_to_actions(scramble: str):
     return actions
 
 
-def rotation_queue_from_scramble(scramble: str):
-    rotation_queue = []
-    parsed = move_scram.generate_scramble(scramble)  # [('U',2),...]
+def rotation_queue_from_scramble(scramble):
+    """
+    Convierte scramble (string) o solución (lista) a cola de rotaciones
+    """
+    # Si es lista, usar search_solving
+    if isinstance(scramble, list):
+        return search_solving(scramble)
 
-    for face, turn in parsed:
-        if turn == 1:
-            actions = [face]
-        elif turn == 2:
-            actions = [face, face]       # U2 -> U U
-        elif turn == 3:
-            actions = [face + "'"]       # U' (antihorario)
-        else:
-            raise ValueError(f"Turn inválido: {turn}")
+    # Si es string, parsear
+    if isinstance(scramble, str):
+        rotation_queue = []
+        parsed = move_scram.generate_scramble(scramble)
 
-        for action in actions:
-            rotation_queue.append(config.rubik_moves[action])
+        for face, turn in parsed:
+            if turn == 1:
+                actions = [face]
+            elif turn == 2:
+                actions = [face, face]
+            elif turn == 3:
+                actions = [face + "'"]
+            else:
+                raise ValueError(f"Turn inválido: {turn}")
 
-    return rotation_queue
+            for action in actions:
+                rotation_queue.append(config.rubik_moves[action])
+
+        return rotation_queue
+
+    raise TypeError(f"Esperaba str o list, recibí: {type(scramble)}")
 
 def invert_move(move: str) -> str:
     if move.endswith("2"):

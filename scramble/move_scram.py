@@ -35,7 +35,7 @@ def generate_scramble(scramble:str):
     return moves
 
 #generar scrambles aleatorios
-def generate_movs(length=3):
+def generate_movs(length):
     faces=list(FACES)
     suffixs=["","'","2"]
     out=[]
