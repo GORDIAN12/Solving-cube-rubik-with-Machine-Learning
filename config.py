@@ -1,8 +1,6 @@
 import numpy as np
 import pyray as pr
-from scramble import move_scram
 
-# ... existing code ...
 rubik_moves = {
     'U': (np.radians(90.), np.array([0, 1, 0]), 2),
     'U\'': (np.radians(-90.), np.array([0, 1, 0]), 2),
@@ -17,7 +15,7 @@ rubik_moves = {
     'B': (np.radians(-90.), np.array([0, 0, 1]), 0),
     'B\'': (np.radians(90.), np.array([0, 0, 1]), 0),
 }
-# ... existing code ...
+
 window_w, window_h = 1200, 1000
 fps=120
 camera=pr.Camera3D([18.0,16.0,18.0],[0.0,0.0,0.0], [0.0,1.0,0.0],45.0,0)

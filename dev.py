@@ -3,13 +3,12 @@ from rubik import Rubik
 from utils import *
 import config
 from scramble import move_scram
-from ML import searching
 
 init_window(config.window_w, config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
 
 # 1) Generar scramble
-movs = move_scram.generate_movs(5)
+movs = move_scram.generate_movs(10)
 print("SCRAMBLE:", movs)
 
 # 2) Generar cola de rotación visual para el scramble
@@ -32,6 +31,7 @@ print("Solución encontrada:", sol)
 
 # 5) Convertir solución a cola
 solution_queue = rotation_queue_from_scramble(sol) if sol is not None else []
+
 print("SOLUTION", solution_queue)
 print(f"Total movimientos en solución: {len(solution_queue)}")
 """
@@ -48,14 +48,14 @@ while not window_should_close():
         else:
             rotation_cube, _ = rubik_cube.handle_rotation(rotation_cube)
             # Solo cambiar cuando la cola esté vacía Y no haya rotación en progreso
-            #print(f"✓ Scramble completado ({len(rotation_queue)} en cola, rotating={rubik_cube.is_rotating})")
-            #animating_scramble = False
+#            print(f"✓ Scramble completado ({len(rotation_queue)} en cola, rotating={rubik_cube.is_rotating})")
+            animating_scramble = False
     else:
-        if solution_queue or rubik_cube.is_rotating:  # ← CAMBIO CLAVE
-            solution_queue, _ = rubik_cube.handle_rotation(solution_queue)
+        if rotation_cube or rubik_cube.is_rotating:  # ← CAMBIO CLAVE
+            rotation_cube, _ = rubik_cube.handle_rotation(rotation_cube)
         else:
             if not animation_complete:
-                print(f"✓ ¡Cubo resuelto! ({len(solution_queue)} en cola, rotating={rubik_cube.is_rotating})")
+                print(f"✓ ¡Cubo resuelto! ({len(rotation_cube)} en cola, rotating={rubik_cube.is_rotating})")
                 animation_complete = True
 
     update_camera(config.camera, CameraMode.CAMERA_THIRD_PERSON)
