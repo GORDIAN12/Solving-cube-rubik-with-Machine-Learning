@@ -1,8 +1,6 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from future.backports.datetime import dim
-from sympy.core.random import shuffle
 from torch.utils.data import TensorDataset, DataLoader
 
 def to_onehot(x,num_colors=6):
