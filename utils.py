@@ -1,6 +1,6 @@
 import config
-from scramble import move_scram  # tu archivo move_scram.py
-from ML import searching
+from scramble import move_scram
+
 """
 def generate_random_movements(n):
     rotation_queue=[]

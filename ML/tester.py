@@ -21,7 +21,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print("== INICIO ==")
 
 # entrenamiento
-model = train_heuristic(X, y, N=N, epochs=4, device=device)
+model = train_heuristic(X, y, N=N, epochs=13, device=device)
 print("== ENTRENAMIENTO TERMINADO ==")
 
 # scramble

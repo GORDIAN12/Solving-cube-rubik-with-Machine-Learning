@@ -158,3 +158,5 @@ if __name__ == "__main__":
         t=apply_move(t,f,4,PERM)
         assert np.array_equal(t,SOLVED_STATE), f"Fallo de identidad  en {f}"
     print("test 4 giros por cada identidad")
+
+

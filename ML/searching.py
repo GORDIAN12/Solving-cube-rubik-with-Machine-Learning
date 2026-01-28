@@ -1,7 +1,6 @@
 import numpy as np
 from scramble.move_scram import SOLVED_STATE, PERM, generate_movs, apply_scramble
 
-# 12 acciones (Quarter-Turn Metric)
 ACTIONS = ["U","U'","D","D'","L","L'","R","R'","F","F'","B","B'"]
 
 def is_solved(state: np.ndarray, SOLVED_STATE: np.ndarray) -> bool:
