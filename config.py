@@ -14,6 +14,16 @@ rubik_moves = {
     'F\'': (np.radians(-90.), np.array([0, 0, 1]), 2),
     'B': (np.radians(-90.), np.array([0, 0, 1]), 0),
     'B\'': (np.radians(90.), np.array([0, 0, 1]), 0),
+
+    'U2': (np.radians(180.), np.array([0, 1, 0]), 2),
+    'D2': (np.radians(180.), np.array([0, 1, 0]), 0),
+
+    'L2': (np.radians(180.), np.array([1, 0, 0]), 0),
+    'R2': (np.radians(180.), np.array([1, 0, 0]), 2),
+
+    'F2': (np.radians(180.), np.array([0, 0, 1]), 2),
+    'B2': (np.radians(180.), np.array([0, 0, 1]), 0),
+
 }
 
 window_w, window_h = 1200, 1000

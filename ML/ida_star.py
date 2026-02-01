@@ -2,8 +2,8 @@ import math
 import numpy as np
 from ML.gen_data import apply_one_move
 from scramble import move_scram
-from train_model import h_model
-import gen_data
+from ML.train_model import h_model
+from ML import gen_data
 
 def ida_star(start_state, all_moves, model, max_iters=50, device="cpu"):
     bound = h_model(model, start_state, device=device)
