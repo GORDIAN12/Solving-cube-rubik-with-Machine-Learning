@@ -3,7 +3,7 @@ from scramble import move_scram
 from ML.gen_data import generate_dataset  # ajusta al nombre real
 import torch
 from ML.ida_star import ida_star
-
+import numpy as np
 # 1) lista fija de acciones compatibles con tu parser
 all_moves = [
     "U","U'","U2",
@@ -14,14 +14,14 @@ all_moves = [
     "B","B'","B2"
 ]
 
-N = 10
+N = 15
 X, y = generate_dataset(all_moves, N=N, samples=100000, seed=0)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print("== INICIO ==")
 
 # entrenamiento
-model = train_heuristic(X, y, N=N, epochs=13, device=device)
+model = train_heuristic(X, y, N=N, epochs=30, device=device)
 print("== ENTRENAMIENTO TERMINADO ==")
 
 # scramble
@@ -43,3 +43,9 @@ sol = ida_star(state, all_moves, model, device=device)
 
 print("== IDA* TERMINÓ ==")
 print("sol:", sol)
+
+test = state.copy()
+for m in sol:
+    test = move_scram.apply_scramble(test, m, move_scram.PERM)
+
+print("¿Resuelto?", np.array_equal(test, move_scram.SOLVED_STATE))
