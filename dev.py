@@ -82,8 +82,15 @@ from scramble import move_scram
 init_window(config.window_w, config.window_h, "Solving cube rubik with ML")
 rubik_cube = Rubik()
 
-
 movs = move_scram.generate_movs(5)
+if isinstance(movs, list):
+    movs_list = movs
+    movs_str = " ".join(movs)
+else:
+    movs_str = movs
+    movs_list = movs.split()
+
+
 print("SCRAMBLE:", movs)
 
 rotation_queue = rotation_queue_from_scramble(movs)
