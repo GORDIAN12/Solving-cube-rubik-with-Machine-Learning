@@ -1,13 +1,11 @@
 from pyray import *
-import config
 from rubik import Rubik
-from scramble import move_scram
 from utils import *
-
-init_window(config.window_w, config.window_h, "Solving cube rubik with ML")
-rubik_cube = Rubik()
+from ML import searching
+from ML import tester
 
 movs = move_scram.generate_movs(5)
+
 if isinstance(movs, list):
     movs_list = movs
     movs_str = " ".join(movs)
@@ -36,29 +34,52 @@ if opc=="1":
     print("1. simular cubo rubik con retroceso")
     rotation_scramble = invert_scramble(movs)
     print("ROTATION SCRAMBLE", rotation_scramble)
-    rotation_cube = rotation_queue_from_scramble(rotation_scramble)
+    solution_queue = rotation_queue_from_scramble(rotation_scramble)
 elif opc=="2":
     print("2. simular cubo rubik IDDFS")
+    # 4) Encontrar solución con IDDFS
+    sol = searching.iddfs_solve(state_scrambled, move_scram.PERM, move_scram.SOLVED_STATE, max_depth=10)
+    print("Solución encontrada:", sol)
+
+    solution_queue = rotation_queue_from_scramble(sol) if sol is not None else []
+
+    print("SOLUTION", solution_queue)
+    print(f"Total movimientos en solución: {len(solution_queue)}")
+
 elif opc=="3":
     print("3. simular cubo rubik con modelo de entrenamiento")
+    solution_queue=tester.solve_state(state_scrambled)
+    print("SOLUCION IA:",  solution_queue)
+    if solution_queue is not None:
+        solution_queue = rotation_queue_from_scramble(solution_queue)
+        print(f"Total movimientos en solución IA: {len(solution_queue)}")
+    else:
+        print("El modelo no encontró solución")
+        solution_queue = []
 
 animating_scramble = True
 animation_complete = False
 
 set_target_fps(config.fps)
+init_window(config.window_w, config.window_h, "Solving cube rubik with ML")
+rubik_cube = Rubik()
+
 while not window_should_close():
+
+    # 1) Animar scramble
     if animating_scramble:
         if rotation_queue or rubik_cube.is_rotating:
             rotation_queue, _ = rubik_cube.handle_rotation(rotation_queue)
         else:
-            rotation_cube, _ = rubik_cube.handle_rotation(rotation_cube)
             animating_scramble = False
+
+    # 2) Animar solución
     else:
-        if rotation_cube or rubik_cube.is_rotating:
-            rotation_cube, _ = rubik_cube.handle_rotation(rotation_cube)
+        if solution_queue or rubik_cube.is_rotating:
+            solution_queue, _ = rubik_cube.handle_rotation(solution_queue)
         else:
             if not animation_complete:
-                print(f"✓ ¡Cubo resuelto! ({len(rotation_cube)} en cola, rotating={rubik_cube.is_rotating})")
+                print("Cubo resuelto")
                 animation_complete = True
 
     update_camera(config.camera, CameraMode.CAMERA_THIRD_PERSON)
@@ -69,14 +90,12 @@ while not window_should_close():
 
     for cube in rubik_cube.cubes:
         for cube_part in cube:
-            position = Vector3(cube[0].center[0], cube[0].center[1], cube[0].center[2])
+            position = Vector3(
+                cube[0].center[0],
+                cube[0].center[1],
+                cube[0].center[2]
+            )
             draw_model(cube_part.model, position, 2, cube_part.face_color)
 
     end_mode_3d()
     end_drawing()
-
-close_window()
-
-
-
-

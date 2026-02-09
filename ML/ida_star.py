@@ -5,11 +5,28 @@ from scramble import move_scram
 from ML.train_model import h_model
 from ML import gen_data
 
-def ida_star(start_state, all_moves, model, max_iters=50, device="cpu"):
-    bound = h_model(model, start_state, device=device)
+def ida_star(start_state, all_moves, model, max_iters=50, device="cpu", verbose=False):
+    # Cache: estado (bytes) -> heurística h
+    h_cache = {}
+
+    def H(state):
+        key = state.tobytes()
+        v = h_cache.get(key)
+        if v is None:
+            v = h_model(model, state, device=device)
+            h_cache[key] = v
+        return v
+
+    bound = H(start_state)
+
+    # (Opcional) contador para stats
+    nodes = 0
 
     def search(state, g, bound, last_move):
-        h = h_model(model, state, device=device)
+        nonlocal nodes
+        nodes += 1
+
+        h = H(state)
         f = g + h
 
         if f > bound:
@@ -24,7 +41,7 @@ def ida_star(start_state, all_moves, model, max_iters=50, device="cpu"):
             t, sol = search(nxt, g + 1, bound, m)
 
             if sol is not None:
-                return t, [m] + sol   # ✅ orden correcto
+                return t, [m] + sol
 
             if t < min_bound:
                 min_bound = t
@@ -32,8 +49,12 @@ def ida_star(start_state, all_moves, model, max_iters=50, device="cpu"):
         return min_bound, None
 
     for it in range(1, max_iters + 1):
-        print(f"[IDA*] iter={it} bound={bound}", flush=True)
+        nodes = 0
         t, sol = search(start_state, 0, bound, None)
+
+        if verbose:
+            print(f"[IDA*] iter={it} bound={bound} nodes={nodes} cache={len(h_cache)}", flush=True)
+
         if sol is not None:
             return sol
         if t == math.inf:
@@ -41,5 +62,3 @@ def ida_star(start_state, all_moves, model, max_iters=50, device="cpu"):
         bound = t
 
     return None
-
-

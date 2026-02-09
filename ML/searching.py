@@ -1,5 +1,4 @@
 import numpy as np
-from scramble.move_scram import SOLVED_STATE, PERM, generate_movs, apply_scramble
 
 ACTIONS = ["U","U'","D","D'","L","L'","R","R'","F","F'","B","B'"]
 
@@ -7,9 +6,7 @@ def is_solved(state: np.ndarray, SOLVED_STATE: np.ndarray) -> bool:
     return np.array_equal(state, SOLVED_STATE)
 
 def step(state: np.ndarray, action: str, PERM: dict) -> np.ndarray:
-    """
-    Aplica una acción tipo "R" o "R'" usando tus permutaciones PERM['R'].
-    """
+
     face = action[0]
     turns = 3 if action.endswith("'") else 1  # ' = 3 giros de 90°
     out = state
@@ -44,19 +41,3 @@ def iddfs_solve(start_state: np.ndarray, PERM: dict, SOLVED_STATE: np.ndarray, m
         if res is not None:
             return res
     return None
-
-if __name__=="__main__":
-
-    scr = generate_movs(5)
-    state_scrambled = apply_scramble(SOLVED_STATE.copy(), scr, PERM)
-
-    print("Scramble:", scr)
-
-    sol = iddfs_solve(state_scrambled, PERM, SOLVED_STATE, max_depth=12)
-    print("Solución encontrada:", sol)
-
-    if sol is not None:
-        st = state_scrambled.copy()
-        for a in sol:
-            st = step(st, a, PERM)
-        print("¿Resuelto?:", np.array_equal(st, SOLVED_STATE))
