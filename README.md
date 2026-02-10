@@ -62,6 +62,6 @@ python main.py
 
 <p align="center">
   <img src="assets/RUBIK_1.png" width="280">
-  <img src="assets/rubik%20_solve.png"280">
+  <img src="assets/rubik%20_solve.png" width="280">
 </p>
 
