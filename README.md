@@ -51,3 +51,15 @@ to solve the cube from a given state.
 ```bash
 git clone https://github.com/GORDIAN12/Solving-cube-rubik-with-Machine-Learning.git
 cd Solving-cube-rubik-with-Machine-Learning
+```
+
+2. Run Program :
+```bash
+python main.py
+```
+
+## Examples
+
+![Demo cube Rubik scramble movs](assets/RUBIK_1.png)
+
+![Demo cube Rubik state solve](assets/rubik%20_solve.png)
