@@ -1,9 +1,10 @@
-#Solving cube rubik with Python and Machine Learning.
+# Solving cube rubik with Python and Machine Learning.
 
 Simulator 3D about cube rubik that generate a random scramble and solving using differents approachs
 regression, search IDDFS and a model  trainer with Pytorch.
+---
 
-##Characteristics.
+## Characteristics.
 - Simulator 3D Cube Rubik.
 - Automatic Generation of Scrambles.
 - Resolution by:
@@ -13,7 +14,7 @@ regression, search IDDFS and a model  trainer with Pytorch.
 - Animation step by step scramble and solution.
 - Modular and easy to extends code.
 
-#Algorithms were used:
+## Algorithms were used:
 
 ### 1. Regreression.
 Invert the original scramble to return the sube in its state solved.
@@ -26,7 +27,7 @@ Ensure find the solution optimal if the limit is enough.
 ### 3. Machine Learning Model
 The Model was trainer with Pytorch that predict the movs sequence to solving the cube from assign state.
 
-##Technologies.
+## Technologies.
 
 - Pytorch 3.10
 - Raylib/pyray
@@ -35,9 +36,6 @@ The Model was trainer with Pytorch that predict the movs sequence to solving the
 - Algorithms searchings.
 
 ## Install.
-
-## 📦 Instalación
-
 1. Clona el repositorio:
 ```bash
 git clone https://github.com/GORDIAN12/Solving-cube-rubik-with-Machine-Learning.git
