@@ -1,5 +1,4 @@
 # Solving Cube Rubik with Python and Machine Learning
-
 3D simulator of a Rubik's Cube that generates a random scramble and solves it
 using different approaches: regression (invert moves), IDDFS search, and a
 trained Machine Learning model with PyTorch.
