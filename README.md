@@ -57,9 +57,10 @@ cd Solving-cube-rubik-with-Machine-Learning
 ```bash
 python main.py
 ```
-
+  
 ## Examples
 
-![Demo cube Rubik scramble movs](assets/RUBIK_1.png)
-
-![Demo cube Rubik state solve](assets/rubik%20_solve.png)
+<p align="center">
+  <img src="assets/RUBIK_1.png" width="300">
+  <img src="assets/rubik_solve.png" width="300">
+</p>
