@@ -61,6 +61,7 @@ python main.py
 ## Examples
 
 <p align="center">
-  <img src="assets/RUBIK_1.png" width="300">
-  <img src="assets/rubik_solve.png" width="300">
+  <img src="assets/RUBIK_1.png" width="280">
+  <img src="assets/rubik%20_solve.png"280">
 </p>
+
